@@ -196,8 +196,8 @@ if __name__ == "__main__":
     dungeonTree.add_rooms()
 
     rooms = dungeonTree.get_rooms()
-    show_rooms(canvas, rooms)
+    show_rooms(canvas, rooms, "grey")
 
     bridges = connect_bridges(rooms)
-    show_bridges(canvas, bridges, 'red')
+    show_bridges(canvas, bridges, '#444444')
     root.mainloop()
