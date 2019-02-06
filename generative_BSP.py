@@ -189,15 +189,17 @@ def get_nearest_room(rooms, list_of_rooms):
 # Saleban's part
 if __name__ == "__main__":
     root = tk.Tk()
+    root.title('Generative Binary Space Partitioning')
     canvas = tk.Canvas(root, width=500, height=500)
+    canvas.configure(background='#434751')
     canvas.pack()
 
     dungeonTree = BSP((0, 0), (100, 100), (20, 20))
     dungeonTree.add_rooms()
 
     rooms = dungeonTree.get_rooms()
-    show_rooms(canvas, rooms, "grey")
+    show_rooms(canvas, rooms, "#f2f4f7")
 
     bridges = connect_bridges(rooms)
-    show_bridges(canvas, bridges, '#444444')
+    show_bridges(canvas, bridges, "#333")
     root.mainloop()
