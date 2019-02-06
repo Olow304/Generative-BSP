@@ -1,3 +1,6 @@
+### RUN
+```python generative_BSP.py```
+
 Read sections 3.1 and 3.2 of Procedural Content Generation in Games (Links to an external site.)Links to an external site.. You will then implement the BSP-based dungeon generation algorithm described on pg. 25. Your program should ultimately output a visual depiction of your generated dungeons, either with simple text-based output or potentially with visual graphics using open frameworks (Links to an external site.)Links to an external site. (C++) or python graphics (Links to an external site.)Links to an external site..
 
 You can work with a partner if you wish, and your solution can be written in either C++ or python. Your submission should include both the source code used to implement your solution and a report containing the following:
