@@ -1,6 +1,12 @@
+"""
+    "If you work with a partner, you must also describe how labor was divided and who was responsible for what."
+    I should do generating all the rooms and displaying
+    you should do generating all the bridges and displaying
+"""
 import random
 import tkinter as tk
 
+# Saleban's part
 def show_rooms(canvas, rooms, color='blue'):
     size = (100, 100)
     x = 500 / size[0]
@@ -12,7 +18,7 @@ def show_rooms(canvas, rooms, color='blue'):
         y2 = room[3] * y - 2
         canvas.create_rectangle(x1, y1, x2, y2, width=0, fill=color)
 
-
+# Victor's part
 def show_bridges(canvas, bridges, color='green'):
     size = (100, 100)
     x = 500 / size[0]
@@ -24,7 +30,7 @@ def show_bridges(canvas, bridges, color='green'):
         y2 = max(bridge[1], bridge[3]) * y
         canvas.create_rectangle(x1, y1, x2, y2, width=0, fill=color)
 
-
+# both        
 class BSP:
     def __init__(self, origin, bounds, node_size):
         self.origin = origin
@@ -33,7 +39,7 @@ class BSP:
         self.after_splitting = None
         self.rooms = None
         self.get_tree(node_size)
-
+    #Saleban's part
     def get_tree(self, node_size):
         a, b = self.origin[0], self.origin[1]
         c, d = self.bounds[0], self.bounds[1]
@@ -51,7 +57,8 @@ class BSP:
                 pos = random.randint(b + spacing, d - spacing)
                 self.before_splitting = BSP((a, b), (pos, d), node_size)
                 self.after_splitting = BSP((pos, b), (c, d), node_size)
-
+    
+    # Victor's part
     def get_bridges(self, bridge=[]):
         bridge.extend(self.bridges)
         if self.before_splitting is not None:
@@ -59,7 +66,8 @@ class BSP:
         if self.after_splitting is not None:
             self.after_splitting.get_bridges(bridge)
         return bridge
-
+    
+    # Saleban's part
     def get_rooms(self, room=[]):
         if self.rooms is not None:
             room.append(self.rooms)
@@ -68,7 +76,8 @@ class BSP:
         if self.after_splitting is not None:
             self.after_splitting.get_rooms(room)
         return room
-
+    
+    # Saleban's part
     def add_rooms(self, bias=.5, s=0):
         if self.before_splitting is None and self.after_splitting is None:
             self.rooms = build_rooms((self.origin[0], self.origin[1], self.bounds[0], self.bounds[1]))
@@ -77,7 +86,7 @@ class BSP:
         if self.after_splitting is not None:
             self.after_splitting.add_rooms(bias, s)
 
-# This builds our room randomly
+# Saleban's part - This builds our room randomly
 def build_rooms(pos):
     x1 = random.randrange(pos[0], (pos[0] + pos[2]) // 2)
     x1_points = pos[0] + (pos[2] - pos[0]) * (1 - 1)
@@ -96,7 +105,7 @@ def build_rooms(pos):
     final_y2 = int(y2 + (y2_points - y2) * 0)
     return final_x1, final_y1, final_x2, final_y2
 
-
+# Victor's part
 def build_bridges(r1, r2):
     bridge_exists = False
     direction = (r2[0] - r1[2], r2[1] - r1[3])
@@ -146,7 +155,7 @@ def build_bridges(r1, r2):
         bridge.append((x_end - width, bridget_pos, x_end + width, y_end))
     return bridge
 
-
+# Victor's part
 def connect_bridges(rooms):
     all_bridges = []
     rooms_left = rooms[:]
@@ -161,7 +170,7 @@ def connect_bridges(rooms):
             break
     return all_bridges
 
-
+# Saleban's part
 def get_nearest_room(rooms, list_of_rooms):
     starting_room = None
     nearest_room = None
@@ -177,7 +186,7 @@ def get_nearest_room(rooms, list_of_rooms):
             nearest_room = dist
     return starting_room
 
-
+# Saleban's part
 if __name__ == "__main__":
     root = tk.Tk()
     canvas = tk.Canvas(root, width=500, height=500)
