@@ -1,7 +1,10 @@
 """
-    "If you work with a partner, you must also describe how labor was divided and who was responsible for what."
-    I should do generating all the rooms and displaying
-    you should do generating all the bridges and displaying
+Saleban Olow, Victor Alves
+CSI-480-01
+Due Thursday, February 7, 2019
+
+Saleban: main, rooms
+Victor: bridges
 """
 import random
 import tkinter as tk
@@ -22,6 +25,14 @@ def show_rooms(canvas, rooms, color='blue'):
 
 # Victor's part
 def show_bridges(canvas, bridges, color='green'):
+    """
+    Visualizes the bridges.
+
+    Args:
+         canvas(canvas): tk.Canvas object
+         bridges(list): List of bridges to visualize
+         color(string): Bridge color
+    """
     size = (100, 100)
     x = 500 / size[0]
     y = 500 / size[1]
@@ -60,17 +71,7 @@ class BSP:
                 pos = random.randint(b + spacing, d - spacing)
                 self.before_splitting = BSP((a, b), (pos, d), node_size)
                 self.after_splitting = BSP((pos, b), (c, d), node_size)
-    
-    # Victor's part
-    # Not used anywhere
-    # def get_bridges(self):
-    #  self.bridge.extend(self.bridges)
-    #  if self.before_splitting is not None:
-    #      self.before_splitting.get_bridges()
-    #  if self.after_splitting is not None:
-    #      self.after_splitting.get_bridges()
-    #  return self.bridge
-    
+
     # Saleban's part
     def get_rooms(self, room=[]):
         if self.rooms is not None:
@@ -114,7 +115,7 @@ def build_rooms(pos):
 # Victor's part
 def build_bridges(left, right):
     """
-    Randomly constructs the bridge between two rooms..
+    Randomly generates the bridge between two rooms..
 
     Args:
         left(room): First room.
@@ -125,49 +126,57 @@ def build_bridges(left, right):
 
     """
     bridge_exists = False
-    # Obtain the
+    # Obtain the direction
     direction = (right[0] - left[2], right[1] - left[3])
+
+    # Check to see if the bridge already exists
     if direction[0] == 0 or direction[1] != 0:
         if min(abs(direction[0]), abs(direction[1])) == abs(direction[0]):
             bridge_exists = True
     else:
         return []
+
     bridge = []
     width = random.randint(0, 1)
     if bridge_exists:
+        # Check x coordinates
+        # If the direction is left
         if direction[0] > 0:
-            global x_start
-            global y_start
-            global x_end
-            global y_end
-            global bridget_pos
+            global x_start, y_start, x_end, y_end, bridget_pos
             x_start = left[2]
-            y_start = random.randint(min(left[1], left[3]), max(left[1], left[3]))
             x_end = right[0]
+            y_start = random.randint(min(left[1], left[3]), max(left[1], left[3]))
             y_end = random.randint(min(right[1], right[3]), max(right[1], right[3]))
             bridget_pos = random.randint(min(left[2], right[0]), max(left[2], right[0]))
+        # If direction is right
         elif direction[0] < 0:
             x_start = right[2]
-            y_start = random.randint(min(right[1], right[3]), max(right[1], right[3]))
             x_end = left[0]
+            y_start = random.randint(min(right[1], right[3]), max(right[1], right[3]))
             y_end = random.randint(min(left[1], left[3]), max(left[1], left[3]))
             bridget_pos = random.randint(min(left[0], right[2]), max(left[0], right[2]))
+
         bridge.append((x_start, y_start - width, bridget_pos, y_start + width))
         bridge.append((bridget_pos - width, y_start - width, bridget_pos + width, y_end + width))
         bridge.append((bridget_pos, y_end - width, x_end, y_end + width))
     else:
+        # Check y coordinates
+        # If direction = up
         if direction[1] < 0:
             y_start = left[3]
-            x_start = random.randint(min(left[0], left[2]), max(left[0], left[2]))
             y_end = right[1]
+            # Generate random x value
+            x_start = random.randint(min(left[0], left[2]), max(left[0], left[2]))
             x_end = random.randint(min(right[0], right[2]), max(right[0], right[2]))
             bridget_pos = random.randint(min(left[3], right[1]), max(left[3], right[1]))
+        # If direction is down
         elif direction[1] > 0:
             y_start = right[3]
-            x_start = random.randint(min(right[0], right[2]), max(right[0], right[2]))
             y_end = left[1]
+            x_start = random.randint(min(right[0], right[2]), max(right[0], right[2]))
             x_end = random.randint(min(left[0], left[2]), max(left[0], left[2]))
             bridget_pos = random.randint(min(right[3], left[1]), max(right[3], left[1]))
+
         bridge.append((x_start - width, y_start, x_start + width, bridget_pos))
         bridge.append((x_start - width, bridget_pos - width, x_end + width, bridget_pos + width))
         bridge.append((x_end - width, bridget_pos, x_end + width, y_end))
