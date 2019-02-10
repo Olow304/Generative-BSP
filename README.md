@@ -13,3 +13,5 @@ You can work with a partner if you wish, and your solution can be written in eit
 * Suggestions of 3 other possible applications of quadtrees or other kinds of trees for generative purposes. You can either come up with suggestions on your own or do some research to see what already-existing work has been done, but you must cite sources if you describe work done by other people.
 * If you work with a partner, you must also describe how labor was divided and who was responsible for what.
 * Your grade will be based 50% on your code and 50% on the report.
+
+<img width="400" src="https://i.imgur.com/xA9BwEo.jpg" >
